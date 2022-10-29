@@ -8,7 +8,12 @@ ___
 ## To implement
 
 - [ ] Adding/delting items
+  - [ ] adding data to json
 - [ ] choice of editor
+- [ ] un/install script
+- [ ] better style
+#### Maybe
+- [ ] custom key binds
 
 ## keybinds (may change)
 
