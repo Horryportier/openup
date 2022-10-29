@@ -21,3 +21,4 @@ func  (d Data) GetData() Data{
 
 	return d 
 }
+
