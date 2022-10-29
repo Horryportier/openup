@@ -13,12 +13,6 @@ import (
 )
 
 // #TODO adding items to list
-// KEYBINDS:
-// -standard list bindings
-// -change existing item {c}
-// -delete item {D}
-// -add item {a}
-// -change editor {cntl+e}
 
 var (
 	editor string
@@ -35,16 +29,18 @@ var (
 
 	focusedButton = focusedStyle.Copy().Render("[Add item]")
 	blurredButton = fmt.Sprintf("[ %s ]", blurredStyle.Render("Add item"))
+	// Data
+	data Data
 )
 
 type Data struct {
-	Item   []Item
-	Editor string
+	Item   []Item `json:"item"`
+	Editor string `json:"editor"`
 }
 
 type Item struct {
-	TITLE string
-	DESC  string
+	TITLE string `json:"title"`
+	DESC  string `json:"desc"`
 }
 
 func (i Item) Title() string       { return i.TITLE }
@@ -77,14 +73,21 @@ type InputModel struct {
 	cursorMode textinput.CursorMode
 }
 
+func (m model) addItem(title string, path string) (tea.Cmd) {
+	data.Item = append(data.Item, Item{TITLE: title, DESC: path})
+	saveData(data)
+        idx := len(data.Item)-1
+
+        items := m.ListModel.list.Items()
+        items = append(items, data.Item[idx])
+        return m.ListModel.list.InsertItem(idx, items[idx])
+}
 
 
 func initialModel() model {
 
-	var data Data
 	data = data.GetData()
 	editor = data.Editor
-
 	var items []list.Item
 	for i := 0; i < len(data.Item); i++ {
 
@@ -92,7 +95,7 @@ func initialModel() model {
 
 	}
 
-	m := model{ListModel{list: list.New(items, list.NewDefaultDelegate(), 0, 0)},
+        m := model{ListModel{list: list.New(items, list.NewDefaultDelegate(), 0, 0)},
 		InputModel{inputs: make([]textinput.Model, 2)},
 		State(ItemList)}
 
@@ -125,6 +128,7 @@ func (m model) Init() tea.Cmd {
 }
 
 func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
+
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -178,19 +182,21 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			s := msg.String()
 
 			if s == "enter" && input.focusIndex == len(input.inputs) {
-                                //title := input.inputs[0].Value()
-                                //path := input.inputs[1].Value()
+				title := input.inputs[0].Value()
+				path := input.inputs[1].Value()
+				cmd = m.addItem(title, path)
+
 				m.InputModel = input
 				m.state = ItemList
-				return m, nil
+				return m, cmd
 			}
 
 			// cycle indexes
-                        if s == "up" || s == "shift+tab" {
-                                input.focusIndex--
-                        } else {
-                                input.focusIndex++
-                        }
+			if s == "up" || s == "shift+tab" {
+				input.focusIndex--
+			} else {
+				input.focusIndex++
+			}
 
 			if input.focusIndex > len(input.inputs) {
 				input.focusIndex = 0

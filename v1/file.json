@@ -1,7 +1,1 @@
-{
-        "item": [{"title": "vim config", "desc": "~/.config/nvim/"},
-                {"title": "foo", "desc": "bar"},
-                {"title": "Project2", "desc": "~/Documents/Project1/main.go"}
-        ],
-        "editor": "nvim"
-}
+{"item":[{"title":"foo","desc":"bar"},{"title":"foo","desc":"bar"},{"title":"","desc":""}],"editor":"nvim"}
