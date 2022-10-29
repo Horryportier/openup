@@ -12,9 +12,9 @@ ___
 
 ## keybinds (may change)
 
--standard list bindings
--change existing item {c}
--delete item {D}
--add item {A}
--change editor {cntl+e}
+- standard list bindings
+- change existing item {c} 
+- delete item {D}
+- add item {A}
+- change editor {cntl+e}
 
