@@ -1,7 +1,6 @@
 package v1
 
 
-
 import (
 	//"github.com/charmbracelet/bubbles/key"
 
@@ -75,18 +74,22 @@ type InputModel struct {
 	cursorMode textinput.CursorMode
 }
 
-func addItem(title string, path string) {
+func (m model) addItem(title string, path string) model {
 	data.Item = append(data.Item, Item{TITLE: title, DESC: path})
 	saveData(data)
-}
 
-func removeItem(index int) {
-        items := data.Item
-        items = append(items[:index], items[index+1:]...) 
+	for i := 0; i < len(data.Item); i++ {
+                if len(data.Item) != 0 {
+		m.ListModel.list.RemoveItem(0)
+        }
+	}
 
-        data.Item = items
-
-        saveData(data)
+	data = data.GetData()
+	items := m.ListModel.list.Items()
+	for i := 0; i < len(data.Item)-1; i++ {
+		m.ListModel.list.InsertItem(i, items[i])
+	}
+	return m
 }
 
 func initialModel() model {
@@ -144,7 +147,6 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			OpenFile(choice, editor)
 			return m, tea.Quit
 		case "D":
-                        removeItem(m.ListModel.list.Index())
 			m.ListModel.list.RemoveItem(m.ListModel.list.Index())
 			return m, nil
 		case "A":
@@ -164,7 +166,6 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 	input := m.InputModel
 
-        
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -192,15 +193,11 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 				if input.inputs[0].Value() != "" && input.inputs[1].Value() != "" {
 					title := input.inputs[0].Value()
 					path := input.inputs[1].Value()
-					addItem(title, path)
-                                        cmd = m.ListModel.list.InsertItem(0, Item{TITLE: title, DESC: path})
+					m = m.addItem(title, path)
 
 					m.InputModel = input
 					m.state = ItemList
-
-                                        input.inputs[0].SetValue("")
-                                        input.inputs[1].SetValue("")
-					return m, cmd 
+					return m, nil
 				}
 			}
 
