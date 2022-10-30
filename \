@@ -34,10 +34,6 @@ var (
 	data Data
 )
 
-func removeByIndex[T any](slice []T, index int) []T {
-	return append(slice[:index], slice[index+1:]...)
-}
-
 type Data struct {
 	Item   []Item `json:"item"`
 	Editor string `json:"editor"`
@@ -78,18 +74,22 @@ type InputModel struct {
 	cursorMode textinput.CursorMode
 }
 
-func addItem(title string, path string) {
+func (m model) addItem(title string, path string) model {
 	data.Item = append(data.Item, Item{TITLE: title, DESC: path})
 	saveData(data)
-}
 
-func removeItem(desc string) {
 	for i := 0; i < len(data.Item); i++ {
-		if data.Item[i].DESC == desc {
-			data.Item = removeByIndex(data.Item, i)
-		}
+                if len(data.Item) != 0 {
+		m.ListModel.list.RemoveItem(0)
+        }
 	}
-	saveData(data)
+
+	data = data.GetData()
+	items := m.ListModel.list.Items()
+	for i := 0; i < len(data.Item)-1; i++ {
+		m.ListModel.list.InsertItem(i, items[i])
+	}
+	return m
 }
 
 func initialModel() model {
@@ -147,7 +147,6 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			OpenFile(choice, editor)
 			return m, tea.Quit
 		case "D":
-			removeItem(data.Item[m.ListModel.list.Index()].FilterValue())
 			m.ListModel.list.RemoveItem(m.ListModel.list.Index())
 			return m, nil
 		case "A":
@@ -173,7 +172,7 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "ctrl+c", "esc":
 			return m, tea.Quit
 
-			//change cursor Mode
+		//change cursor Mode
 		case "ctrl+r":
 			input.cursorMode++
 			if input.cursorMode > textinput.CursorHide {
@@ -194,15 +193,11 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 				if input.inputs[0].Value() != "" && input.inputs[1].Value() != "" {
 					title := input.inputs[0].Value()
 					path := input.inputs[1].Value()
-					addItem(title, path)
-					cmd = m.ListModel.list.InsertItem(len(data.Item), Item{TITLE: title, DESC: path})
+					m = m.addItem(title, path)
 
 					m.InputModel = input
 					m.state = ItemList
-
-					input.inputs[0].SetValue("")
-					input.inputs[1].SetValue("")
-					return m, cmd
+					return m, nil
 				}
 			}
 
