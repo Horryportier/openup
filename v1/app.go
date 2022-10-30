@@ -1,7 +1,6 @@
 package v1
 
 
-
 import (
 	//"github.com/charmbracelet/bubbles/key"
 
@@ -34,6 +33,10 @@ var (
 	// Data
 	data Data
 )
+
+func removeByIndex[T any](slice []T, index int) []T {
+	return append(slice[:index], slice[index+1:]...)
+}
 
 type Data struct {
 	Item   []Item `json:"item"`
@@ -80,13 +83,13 @@ func addItem(title string, path string) {
 	saveData(data)
 }
 
-func removeItem(index int) {
-        items := data.Item
-        items = append(items[:index], items[index+1:]...) 
-
-        data.Item = items
-
-        saveData(data)
+func removeItem(desc string) {
+	for i := 0; i < len(data.Item); i++ {
+		if data.Item[i].DESC == desc {
+			data.Item = removeByIndex(data.Item, i)
+		}
+	}
+	saveData(data)
 }
 
 func initialModel() model {
@@ -144,7 +147,7 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			OpenFile(choice, editor)
 			return m, tea.Quit
 		case "D":
-                        removeItem(m.ListModel.list.Index())
+			removeItem(data.Item[m.ListModel.list.Index()].FilterValue())
 			m.ListModel.list.RemoveItem(m.ListModel.list.Index())
 			return m, nil
 		case "A":
@@ -164,14 +167,13 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 	input := m.InputModel
 
-        
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "ctrl+c", "esc":
 			return m, tea.Quit
 
-		//change cursor Mode
+			//change cursor Mode
 		case "ctrl+r":
 			input.cursorMode++
 			if input.cursorMode > textinput.CursorHide {
@@ -193,14 +195,14 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 					title := input.inputs[0].Value()
 					path := input.inputs[1].Value()
 					addItem(title, path)
-                                        cmd = m.ListModel.list.InsertItem(0, Item{TITLE: title, DESC: path})
+					cmd = m.ListModel.list.InsertItem(len(data.Item), Item{TITLE: title, DESC: path})
 
 					m.InputModel = input
 					m.state = ItemList
 
-                                        input.inputs[0].SetValue("")
-                                        input.inputs[1].SetValue("")
-					return m, cmd 
+					input.inputs[0].SetValue("")
+					input.inputs[1].SetValue("")
+					return m, cmd
 				}
 			}
 
