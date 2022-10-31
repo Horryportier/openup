@@ -10,6 +10,15 @@ ___
 > Then you are hit enter while hovering over file u want to open and it will open it in your editor of choice that you can change by pressing `E`.
 ___
 ![](./v1/openupvid.gif)
+___
+
+### Installation:
+
+#### Linux:
+
+**Temporary**
+> For now thers no install script. So the best way is to your put  `openup.exe` 
+and `data.json` in `.local/bin`.
 
 
 ## To implement

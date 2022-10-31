@@ -9,7 +9,7 @@ import (
 
 
 func  (d Data) GetData() Data{
-	file, err := ioutil.ReadFile("v1/file.json")
+	file, err := ioutil.ReadFile("data.json")
 	if err != nil {
                 log.Fatalf("failed to open the file: %e", err)
 	}
@@ -29,7 +29,7 @@ func saveData(d Data) {
                 log.Fatal(err)
         }
 
-        err = ioutil.WriteFile("v1/file.json", parsed, fs.FileMode(0))
+        err = ioutil.WriteFile("data.json", parsed, fs.FileMode(0))
         if err != nil {
                 log.Fatal(err)
         }

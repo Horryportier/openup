@@ -156,9 +156,11 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "ctrl+c", "esc":
 			return m, tea.Quit
 		case "enter":
+                        if len(m.ListModel.list.Items()) > 0{
 			choice := m.ListModel.list.Items()[m.ListModel.list.Index()].FilterValue()
 			OpenFile(choice, editor)
 			return m, tea.Quit
+                }
 		case "D": //remove item
 			removeItem(data.Item[m.ListModel.list.Index()].FilterValue())
 			m.ListModel.list.RemoveItem(m.ListModel.list.Index())
