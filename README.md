@@ -9,6 +9,8 @@ ___
 > give you ability to add item to the list. Simply type out Title path  to your file or directory of choice.
 > Then you are hit enter while hovering over file u want to open and it will open it in your editor of choice that you can change by pressing `E`.
 
+
+
 ![;)](./v1/openupvid.gif)
 
 
