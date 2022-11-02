@@ -5,3 +5,4 @@
 - [x] deleting items deletes wrong one
 - [x] error when list is empty
 - [ ] after changing editor it opens file in old choice even though file changed and it displays it corretly. 
+- [ ] binary looks for file in the directory its been runed not in the place where it exist
