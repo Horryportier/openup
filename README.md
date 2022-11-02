@@ -16,35 +16,36 @@ ___
 
 #### Linux:
 
-        1. Clone repo:
-        ```git clone https://github.com/Horryportier/openup
-        cd openup
-        ```
+1. Clone repo:
+```
+   git clone https://github.com/Horryportier/openup
+   cd openup
+```
+2. execute install script.
+```
+chmod +x install.sh
 
-        2. execute install script.
-        ```
-        chmod +x install.sh
-
-        ./install.sh
-        ```
+./install.sh
+```
 
 
 
 ## To implement
-        - [x] Adding/delting items
-        - [x] adding data to json
-        - [x] choice of editor
-        - [ ] un/install script
-        - [ ] better style
-        - [ ] changing existing item
+- [x] Adding/delting items
+- [x] adding data to json
+- [x] choice of editor
+- [ ] un/install script
+- [ ] better style
+- [ ] changing existing item
+
 #### Maybe
-        - [ ] custom key binds
+- [ ] custom key binds
 
 ## keybinds (may change)
 
-        - standard list bindings
-        - change existing item {c}
-        - delete item {D}
-        - add item {A}
-        - change editor {E}
+- standard bubbletea list bindings
+- change existing item {c}
+- delete item {D}
+- add item {A}
+- change editor {E}
 
