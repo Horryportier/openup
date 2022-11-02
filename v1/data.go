@@ -2,14 +2,24 @@ package v1
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/fs"
 	"io/ioutil"
 	"log"
+	"os/user"
 )
 
+func path() string{
+        user, err := user.Current()
+        if err != nil {
+                log.Fatal(err)
+        }
+        path := fmt.Sprintf("/home/%s/openup/data.json", user.Username)
+        return path
+}
 
 func  (d Data) GetData() Data{
-	file, err := ioutil.ReadFile("data.json")
+        file, err := ioutil.ReadFile(path())
 	if err != nil {
                 log.Fatalf("failed to open the file: %e", err)
 	}
@@ -29,7 +39,7 @@ func saveData(d Data) {
                 log.Fatal(err)
         }
 
-        err = ioutil.WriteFile("data.json", parsed, fs.FileMode(0))
+        err = ioutil.WriteFile(path(), parsed, fs.FileMode(0))
         if err != nil {
                 log.Fatal(err)
         }
