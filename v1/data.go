@@ -9,7 +9,12 @@ import (
 	"os/user"
 )
 
-func path() string{
+func path(dev *bool) string{
+    if (*dev) {
+        // change the data file for development & don't change the data.json
+        // template so the install.sh still works
+        return "./dev_data.json"
+    }
         user, err := user.Current()
         if err != nil {
                 log.Fatal(err)
@@ -19,7 +24,7 @@ func path() string{
 }
 
 func  (d Data) GetData() Data{
-        file, err := ioutil.ReadFile(path())
+        file, err := ioutil.ReadFile(path(dev))
 	if err != nil {
                 log.Fatalf("failed to open the file: %e", err)
 	}
@@ -39,7 +44,7 @@ func saveData(d Data) {
                 log.Fatal(err)
         }
 
-        err = ioutil.WriteFile(path(), parsed, fs.FileMode(0))
+        err = ioutil.WriteFile(path(dev), parsed, fs.FileMode(0))
         if err != nil {
                 log.Fatal(err)
         }
