@@ -102,7 +102,9 @@ func initialModel() model {
 
     flag.Parse()
 	data = data.GetData()
-    data.SetDefaultEditor()
+    if (!*noDefaultEditor) {
+        data.SetDefaultEditor()
+    }
 	editor = data.Editor
 	var items []list.Item
 	for i := 0; i < len(data.Item); i++ {
