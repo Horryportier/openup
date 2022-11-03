@@ -6,6 +6,7 @@ import (
 	"io/fs"
 	"io/ioutil"
 	"log"
+	"os"
 	"os/user"
 )
 
@@ -36,6 +37,16 @@ func  (d Data) GetData() Data{
         }
 
 	return d 
+}
+
+// SetDefaultEditor sets the default editor if it exists as an environment 
+// variable. If it does not exists nothing happens to the data struct.
+func (d *Data) SetDefaultEditor() {
+    defaultEditor, success := os.LookupEnv("EDITOR")
+
+    if (success && defaultEditor != "") {
+        d.Editor = defaultEditor
+    }
 }
 
 func saveData(d Data) {
