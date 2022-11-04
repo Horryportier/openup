@@ -3,6 +3,7 @@ package v1
 import (
 	//"github.com/charmbracelet/bubbles/key"
 
+	"flag"
 	"fmt"
 	"strconv"
 	"strings"
@@ -99,7 +100,11 @@ func removeItem(desc string) {
 
 func initialModel() model {
 
+    flag.Parse()
 	data = data.GetData()
+    if (!*noDefaultEditor) {
+        data.SetDefaultEditor()
+    }
 	editor = data.Editor
 	var items []list.Item
 	for i := 0; i < len(data.Item); i++ {

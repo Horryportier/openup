@@ -6,10 +6,16 @@ import (
 	"io/fs"
 	"io/ioutil"
 	"log"
+	"os"
 	"os/user"
 )
 
-func path() string{
+func path(dev *bool) string{
+    if (*dev) {
+        // change the data file for development & don't change the data.json
+        // template so the install.sh still works
+        return "./dev_data.json"
+    }
         user, err := user.Current()
         if err != nil {
                 log.Fatal(err)
@@ -19,7 +25,7 @@ func path() string{
 }
 
 func  (d Data) GetData() Data{
-        file, err := ioutil.ReadFile(path())
+        file, err := ioutil.ReadFile(path(dev))
 	if err != nil {
                 log.Fatalf("failed to open the file: %e", err)
 	}
@@ -33,13 +39,23 @@ func  (d Data) GetData() Data{
 	return d 
 }
 
+// SetDefaultEditor sets the default editor if it exists as an environment 
+// variable. If it does not exists nothing happens to the data struct.
+func (d *Data) SetDefaultEditor() {
+    defaultEditor, success := os.LookupEnv("EDITOR")
+
+    if (success && defaultEditor != "") {
+        d.Editor = defaultEditor
+    }
+}
+
 func saveData(d Data) {
         parsed, err := json.Marshal(d)
         if err != nil {
                 log.Fatal(err)
         }
 
-        err = ioutil.WriteFile(path(), parsed, fs.FileMode(0))
+        err = ioutil.WriteFile(path(dev), parsed, fs.FileMode(0))
         if err != nil {
                 log.Fatal(err)
         }
