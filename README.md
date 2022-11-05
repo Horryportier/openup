@@ -37,6 +37,7 @@ chmod +x install.sh
 - [ ] un/install script
 - [ ] better style
 - [ ] changing existing item
+- [ ] choice to switch to dir or stay in one you opened the app
 
 #### Maybe
 - [ ] custom key binds
