@@ -34,7 +34,7 @@ chmod +x install.sh
 - [x] Adding/delting items
 - [x] adding data to json
 - [x] choice of editor
-- [ ] un/install script
+- [x] un/install script
 - [ ] better style
 - [ ] changing existing item
 - [ ] choice to switch to dir or stay in one you opened the app
