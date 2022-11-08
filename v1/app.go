@@ -1,13 +1,12 @@
 package v1
 
 import (
-	//"github.com/charmbracelet/bubbles/key"
-
 	"flag"
 	"fmt"
 	"strconv"
 	"strings"
 
+	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -59,7 +58,7 @@ func (i Item) FilterValue() string { return i.DESC }
 type State int
 
 const (
-	ItemList     State = iota
+	ItemList State = iota
 	EditorChoice
 	TextInput
 )
@@ -68,6 +67,7 @@ type model struct {
 	ListModel  ListModel
 	InputModel InputModel
 	Editor     textinput.Model
+	keys       *ListKeyMap
 	state      State
 }
 
@@ -100,13 +100,16 @@ func removeItem(desc string) {
 
 func initialModel() model {
 
-    flag.Parse()
+	flag.Parse()
 	data = data.GetData()
-    if (!*noDefaultEditor) {
-        data.SetDefaultEditor()
-    }
+	if !*noDefaultEditor {
+		data.SetDefaultEditor()
+	}
 	editor = data.Editor
-	var items []list.Item
+	var (
+		items    []list.Item
+		listKeys = newListKeyMap()
+	)
 	for i := 0; i < len(data.Item); i++ {
 
 		items = append(items, data.Item[i])
@@ -117,9 +120,17 @@ func initialModel() model {
 
 	m := model{ListModel{list: list.New(items, delegate, 0, 0)},
 		InputModel{inputs: make([]textinput.Model, 2)},
-		textinput.New(), State(ItemList)}
+		textinput.New(), listKeys, State(ItemList)}
 
 	m.ListModel.list.Title = "FBI OPEN UP"
+
+	m.ListModel.list.AdditionalFullHelpKeys = func() []key.Binding {
+		return []key.Binding{
+			listKeys.addItem,
+			listKeys.changeEditor,
+			listKeys.deleteItem,
+		}
+	}
 
 	var t textinput.Model
 	for i := range m.InputModel.inputs {
@@ -161,19 +172,21 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "ctrl+c", "esc":
 			return m, tea.Quit
 		case "enter":
-                        if len(m.ListModel.list.Items()) > 0{
-			choice := m.ListModel.list.Items()[m.ListModel.list.Index()].FilterValue()
-			OpenFile(choice, editor)
-			return m, tea.Quit
-                }
-		case "D": //remove item
+			if len(m.ListModel.list.Items()) > 0 {
+				choice := m.ListModel.list.Items()[m.ListModel.list.Index()].FilterValue()
+				OpenFile(choice, editor)
+				return m, tea.Quit
+			}
+		}
+		switch {
+		case key.Matches(msg, m.keys.deleteItem): //remove item
 			removeItem(data.Item[m.ListModel.list.Index()].FilterValue())
 			m.ListModel.list.RemoveItem(m.ListModel.list.Index())
 			return m, nil
-		case "A": // add item
+		case key.Matches(msg, m.keys.addItem): // add item
 			m.state = TextInput
 			return m, nil
-		case "E": // change editor
+		case key.Matches(msg, m.keys.changeEditor): // change editor
 			m.state = EditorChoice
 			return m, nil
 		}
@@ -193,7 +206,7 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "ctrl+c", "esc":
-                        m.state = ItemList
+			m.state = ItemList
 			return m, nil
 
 			//change cursor Mode
@@ -282,7 +295,7 @@ func (m *model) updateInputs(msg tea.Msg) tea.Cmd {
 func EditorChoiceUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
-        m.Editor.Focus()
+	m.Editor.Focus()
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -292,7 +305,7 @@ func EditorChoiceUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			index, _ := strconv.Atoi(m.Editor.Value())
 			data.Editor = editors[index]
 			saveData(data)
-                        data = data.GetData()
+			data = data.GetData()
 			m.state = ItemList
 			return m, nil
 		case "cntl+l":
@@ -369,9 +382,9 @@ func (m model) View() string {
 	if m.state == TextInput {
 		return docStyle.Render(renderInputs(m))
 	}
-        ed := helpStyle.Render("\nEditor(" + data.Editor + ")")
-        
-        return docStyle.Render(m.ListModel.list.View()) + ed
+	ed := helpStyle.Render("\nEditor(" + data.Editor + ")")
+
+	return docStyle.Render(m.ListModel.list.View()) + ed
 }
 
 func Start() error {
