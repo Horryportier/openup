@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+# TODO flag to choose deleting data.joson or only bin.
+
 user=$(whoami)
 
 dir="/home/$user/openup/"
