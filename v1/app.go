@@ -2,7 +2,7 @@ package v1
 
 import (
 	"flag"
-	"log"
+	// "log"
 
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
