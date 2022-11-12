@@ -2,17 +2,17 @@
   "item": [],
   "editor": "nvim",
   "keymaps": {
-    "addItem": {
-      "key": "A",
-      "desc": "add a new Item"
+    "AddItem": {
+      "Key": "A",
+      "Desc": "add a new Item"
     },
-    "deleteItem": {
-      "key": "D",
-      "desc": "delete a Item"
+    "DeleteItem": {
+      "Key": "D",
+      "Desc": "delete a Item"
     },
-    "changeEditor": {
-      "key": "E",
-      "desc": "change the default editor"
+    "ChangeEditor": {
+      "Key": "E",
+      "Desc": "change the default editor"
     }
   }
 }
