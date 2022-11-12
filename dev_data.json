@@ -1,1 +1,18 @@
-{"item":[],"editor":"nvim"}
+{
+  "item": [],
+  "editor": "nvim",
+  "keymaps": {
+    "addItem": {
+      "key": "A",
+      "desc": "add a new Item"
+    },
+    "deleteItem": {
+      "key": "D",
+      "desc": "delete a Item"
+    },
+    "changeEditor": {
+      "key": "E",
+      "desc": "change the default editor"
+    }
+  }
+}
