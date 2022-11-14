@@ -24,8 +24,18 @@ type KeyMaps struct {
 	ChangeEditor KeyMap
 }
 
-// TODO: deserialisation function for keymaps
+// initialize keymaps from data.json file
+// if data.json file has no keymaps the default keymaps get set
 func newListKeyMap(keyMaps KeyMaps) *ListKeyMap {
+    if keyMaps.DeleteItem.Key == "" {
+        keyMaps.DeleteItem.Key = "D"
+    }
+    if keyMaps.ChangeEditor.Key == "" {
+        keyMaps.ChangeEditor.Key = "E"
+    }
+    if keyMaps.AddItem.Key == "" {
+        keyMaps.AddItem.Key = "A"
+    }
 	return &ListKeyMap{
 		deleteItem: key.NewBinding(
 			key.WithKeys(keyMaps.DeleteItem.Key),
