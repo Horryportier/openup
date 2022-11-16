@@ -21,7 +21,8 @@ func EditorChoiceUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "ctrl+c":
-			return m, tea.Quit
+                        m.state = ItemList
+			return m, nil
 		case "enter":
 			index, _ := strconv.Atoi(m.Editor.Value())
 			data.Editor = editors[index]

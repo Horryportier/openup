@@ -49,8 +49,10 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 		switch {
 		case key.Matches(msg, m.keys.deleteItem): //remove item
-			removeItem(data.Item[m.ListModel.list.Index()].FilterValue())
-			m.ListModel.list.RemoveItem(m.ListModel.list.Index())
+			if len(m.ListModel.list.Items()) > 0 {
+				removeItem(data.Item[m.ListModel.list.Index()].FilterValue())
+				m.ListModel.list.RemoveItem(m.ListModel.list.Index())
+			}
 			return m, nil
 		case key.Matches(msg, m.keys.addItem): // add item
 			m.state = TextInput
