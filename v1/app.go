@@ -2,6 +2,7 @@ package v1
 
 import (
 	"flag"
+	// "log"
 
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
@@ -23,8 +24,9 @@ var (
 )
 
 type Data struct {
-	Item   []Item `json:"item"`
-	Editor string `json:"editor"`
+	Item    []Item  `json:"item"`
+	Editor  string  `json:"editor"`
+	KeyMaps KeyMaps `json:"keymaps"`
 }
 
 type State int
@@ -53,7 +55,7 @@ func initialModel() model {
 	editor = data.Editor
 	var (
 		items    []list.Item
-		listKeys = newListKeyMap()
+		listKeys = newListKeyMap(data.KeyMaps)
 	)
 	for i := 0; i < len(data.Item); i++ {
 
