@@ -41,7 +41,7 @@ func configPath(dev *bool) string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	path := fmt.Sprintf("/home/%s/.config/config.json", user.Username)
+	path := fmt.Sprintf("/home/%s/.config/openup/config.json", user.Username)
 	return path
 }
 
