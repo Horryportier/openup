@@ -51,7 +51,7 @@ func GetConfig() KeyMaps {
 	var keymaps KeyMaps
 	file, err := ioutil.ReadFile(configPath(dev))
 	if err != nil {
-		log.Fatalf("failed to open the keymaps file: %e", err)
+        return keymaps
 	}
 
 	err = json.Unmarshal([]byte(file), &keymaps)
