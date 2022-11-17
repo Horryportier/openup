@@ -49,13 +49,14 @@ func initialModel() model {
 
 	flag.Parse()
 	data = data.GetData()
+    keymaps := GetConfig();
 	if !*noDefaultEditor {
 		data.SetDefaultEditor()
 	}
 	editor = data.Editor
 	var (
 		items    []list.Item
-		listKeys = newListKeyMap(data.KeyMaps)
+		listKeys = newListKeyMap(keymaps)
 	)
 	for i := 0; i < len(data.Item); i++ {
 
