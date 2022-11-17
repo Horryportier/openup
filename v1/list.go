@@ -1,6 +1,7 @@
 package v1
 
 import (
+
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
@@ -43,9 +44,15 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			if len(m.ListModel.list.Items()) > 0 {
 				choice := m.ListModel.list.Items()[m.ListModel.list.Index()].FilterValue()
-				OpenFile(choice, editor)
+				OpenFile(choice, editor, false)
 				return m, tea.Quit
 			}
+                case "O":
+                        if len(m.ListModel.list.Items()) > 0 {
+				choice := m.ListModel.list.Items()[m.ListModel.list.Index()].FilterValue()
+				OpenFile(choice, editor, true)
+				return m, tea.Quit
+                        }
 		}
 		switch {
 		case key.Matches(msg, m.keys.deleteItem): //remove item
@@ -60,6 +67,7 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.changeEditor): // change editor
 			m.state = EditorChoice
 			return m, nil
+
 		}
 	case tea.WindowSizeMsg:
 		h, v := docStyle.GetFrameSize()

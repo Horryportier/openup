@@ -1,4 +1,1 @@
-{
-  "item": [],
-  "editor": "nvim"
-}
+{"item":[{"title":"test","desc":"~/openup/data.json"}],"editor":"nvim","keymaps":{"DeleteItem":{"Key":"","Desc":""},"AddItem":{"Key":"","Desc":""},"ChangeEditor":{"Key":"","Desc":""}}}
