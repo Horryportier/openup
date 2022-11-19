@@ -1,18 +1,4 @@
 {
   "item": [],
-  "editor": "nvim",
-  "keymaps": {
-    "AddItem": {
-      "Key": "A",
-      "Desc": "add a new Item"
-    },
-    "DeleteItem": {
-      "Key": "D",
-      "Desc": "delete a Item"
-    },
-    "ChangeEditor": {
-      "Key": "E",
-      "Desc": "change the default editor"
-    }
-  }
+  "editor": "nvim"
 }
