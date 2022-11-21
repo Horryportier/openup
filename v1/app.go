@@ -8,7 +8,6 @@ import (
 	"github.com/charmbracelet/bubbles/list"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
 )
 
 // #TODO adding items to list
@@ -16,8 +15,6 @@ import (
 var (
 	editors = []string{"vim", "nvim", "code", "subl"}
 	editor  string
-
-	docStyle = lipgloss.NewStyle().Margin(1, 2)
 
 	// Data
 	data Data
@@ -49,7 +46,7 @@ func initialModel() model {
 
 	flag.Parse()
 	data = data.GetData()
-    keymaps := GetConfig();
+	keymaps := GetConfig()
 	if !*noDefaultEditor {
 		data.SetDefaultEditor()
 	}
@@ -104,6 +101,8 @@ func initialModel() model {
 	m.Editor.TextStyle = focusedStyle
 	m.Editor.CharLimit = 1
 
+        m = SetStyle(m)
+
 	return m
 }
 
@@ -128,14 +127,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m model) View() string {
 	if m.state == EditorChoice {
-		return docStyle.Render(renderEditor(m))
+		return dockstyle.Render(renderEditor(m))
 	}
 	if m.state == TextInput {
-		return docStyle.Render(renderInputs(m))
+		return dockstyle.Render(renderInputs(m))
 	}
-	ed := helpStyle.Render("\nEditor(" + data.Editor + ")")
+	ed := helpStyle.Render("\nEditor(" + accentColor1Text.Render(data.Editor) + ")")
 
-	return docStyle.Render(m.ListModel.list.View()) + ed
+	return dockstyle.Render(m.ListModel.list.View() + ed)
 }
 
 func Start() error {

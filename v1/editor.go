@@ -25,6 +25,7 @@ func EditorChoiceUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		case "enter":
 			index, _ := strconv.Atoi(m.Editor.Value())
+                        editor = editors[index]
 			data.Editor = editors[index]
 			saveData(data)
 			data = data.GetData()
@@ -35,7 +36,7 @@ func EditorChoiceUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		}
 	case tea.WindowSizeMsg:
-		h, v := docStyle.GetFrameSize()
+		h, v := dockstyle.GetFrameSize()
 		m.ListModel.list.SetSize(msg.Width-h, msg.Height-v)
 	}
 
@@ -48,12 +49,17 @@ func renderEditor(m model) string {
 
 	var b strings.Builder
 
-	b.WriteString("Choose your editor of choice.\n")
+	b.WriteString("Pick your editor of choice.\n")
 	for i := 0; i < len(editors); i++ {
+                if editors[i] == editor {
+                        fmt.Fprintf(&b, accentColor2Text.Render("\n"+fmt.Sprintf("%v",i) +"."+editor+"\n"))
+        }else{
 		fmt.Fprintf(&b, "\n%v.%s\n", i, editors[i])
+        }
 	}
 
-	fmt.Fprintf(&b, "\n%s\n", m.Editor.View())
+
+	fmt.Fprintf(&b, "\n\n%s\n", m.Editor.View())
 
 	return b.String()
 }

@@ -101,7 +101,7 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Batch(cmds...)
 		}
 	case tea.WindowSizeMsg:
-		h, v := docStyle.GetFrameSize()
+		h, v := dockstyle.GetFrameSize()
 		m.ListModel.list.SetSize(msg.Width-h, msg.Height-v)
 	}
 
