@@ -35,6 +35,7 @@ func removeItem(desc string) {
 func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
+
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -62,9 +63,12 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		}
 	case tea.WindowSizeMsg:
-		h, v := docStyle.GetFrameSize()
+		h, v := dockstyle.GetFrameSize()
 		m.ListModel.list.SetSize(msg.Width-h, msg.Height-v)
+                dockstyle.Width(msg.Width)
+                dockstyle.Height(msg.Height)
 	}
+
 	m.ListModel.list, cmd = m.ListModel.list.Update(msg)
 	return m, cmd
 }
