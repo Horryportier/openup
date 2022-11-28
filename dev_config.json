@@ -10,5 +10,9 @@
     "ChangeEditor": {
         "Key": "E",
         "Desc": "[dev] change the default editor"
+    },
+    "ChangeItem": {
+        "Key": "C",
+        "Desc": "[dev] change the selected item"
     }
 }

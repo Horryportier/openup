@@ -15,6 +15,7 @@ type ListKeyMap struct {
 	deleteItem   key.Binding
 	addItem      key.Binding
 	changeEditor key.Binding
+	changeItem   key.Binding
 }
 
 // holds the key as a char (string) and the desc as a string
@@ -28,6 +29,7 @@ type KeyMaps struct {
 	DeleteItem   KeyMap
 	AddItem      KeyMap
 	ChangeEditor KeyMap
+	ChangeItem   KeyMap
 }
 
 // get the path to config file
@@ -51,7 +53,7 @@ func GetConfig() KeyMaps {
 	var keymaps KeyMaps
 	file, err := ioutil.ReadFile(configPath(dev))
 	if err != nil {
-        return keymaps
+		return keymaps
 	}
 
 	err = json.Unmarshal([]byte(file), &keymaps)
@@ -77,6 +79,10 @@ func newListKeyMap(keyMaps KeyMaps) *ListKeyMap {
 		keyMaps.AddItem.Key = "A"
 		keyMaps.AddItem.Desc = "add an item"
 	}
+	if keyMaps.ChangeItem.Key == "" {
+		keyMaps.ChangeItem.Key = "C"
+		keyMaps.ChangeItem.Desc = "change item"
+	}
 	return &ListKeyMap{
 		deleteItem: key.NewBinding(
 			key.WithKeys(keyMaps.DeleteItem.Key),
@@ -89,6 +95,10 @@ func newListKeyMap(keyMaps KeyMaps) *ListKeyMap {
 		changeEditor: key.NewBinding(
 			key.WithKeys(keyMaps.ChangeEditor.Key),
 			key.WithHelp(keyMaps.ChangeEditor.Key, keyMaps.ChangeEditor.Desc),
+		),
+		changeItem: key.NewBinding(
+			key.WithKeys(keyMaps.ChangeItem.Key),
+			key.WithKeys(keyMaps.ChangeItem.Desc),
 		),
 	}
 }

@@ -1,14 +1,18 @@
 {
-    "AddItem": {
-        "Key": "A",
-        "Desc": "[dev] add a new Item"
-    },
-    "DeleteItem": {
-        "Key": "D",
-        "Desc": "[dev] delete a Item"
-    },
-    "ChangeEditor": {
-        "Key": "E",
-        "Desc": "[dev] change the default editor"
-    }
+        "AddItem": {
+                "Key": "A",
+                "Desc": "[dev] add a new Item"
+        },
+        "DeleteItem": {
+                "Key": "D",
+                "Desc": "[dev] delete a Item"
+        },
+        "ChangeEditor": {
+                "Key": "E",
+                "Desc": "[dev] change the default editor"
+        },
+        "ChangeItem": {
+                "Key": "C",
+                "Desc": "[dev] change the selected item"
+        }
 }
