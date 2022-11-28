@@ -14,8 +14,8 @@ if [[ -z "$(which go)" ]]; then
         exit 1
 fi
 
-# update bin file 
-go build main.go 
+# update bin file
+go build main.go
 cp main openup
 
 if [[ ! -d "$PATH" ]]; then
