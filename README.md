@@ -5,9 +5,15 @@ ___
 > this is simple tui for opening project, config, etc files.
 
 ### How to use
-> When you open this up u gonna have view of empty list. Only thing u need to do is pressing `A` which will
-> give you ability to add item to the list. Simply type out Title path  to your file or directory of choice.
-> Then you are hit enter while hovering over file u want to open and it will open it in your editor of choice that you can change by pressing `E`.
+
+```mermaid
+flowchart TD;
+        O[type openup in terminal]--> A[in app]
+        A--> B[Press `A` to add new item]
+        A--> C[Press `D` to delete item]
+        A--> D[Press `E` to change editor]
+        A--> E[Press `enter` to open file]
+```
         ___
 ![](./v1/openupvid.gif)
         ___
