@@ -14,44 +14,34 @@ flowchart TD;
         A--> D[Press `E` to change editor]
         A--> E[Press `enter` to open file]
 ```
-        ___
-![](./v1/openupvid.gif)
-        ___
+
+<img src="https://raw.githubusercontent.com/Horryportier/openup/main/v1/openupvid.gif" width=500 />
+
 
 ### Installation:
 
 #### Linux:
 
-1. Clone repo:
-```
+```bash
    git clone https://github.com/Horryportier/openup
    cd openup
+   chmod +x install.sh
+   ./install.sh
 ```
-2. execute install script.
-```
-chmod +x install.sh
-
-./install.sh
-```
-
-
 
 ## To implement
 - [x] Adding/delting items
 - [x] adding data to json
 - [x] choice of editor
 - [x] un/install script
-- [ ] better style
+- [x] better style
 - [ ] changing existing item
-- [ ] choice to switch to dir or stay in one you opened the app
-
-#### Maybe
-- [ ] custom key binds
+- [x] custom key binds
 
 ## keybinds (may change)
 
 - standard bubbletea list bindings
-- change existing item {c}
+- change existing item {c} not working 
 - delete item {D}
 - add item {A}
 - change editor {E}
