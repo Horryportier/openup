@@ -98,7 +98,7 @@ func newListKeyMap(keyMaps KeyMaps) *ListKeyMap {
 		),
 		changeItem: key.NewBinding(
 			key.WithKeys(keyMaps.ChangeItem.Key),
-			key.WithKeys(keyMaps.ChangeItem.Desc),
+			key.WithHelp(keyMaps.ChangeItem.Key, keyMaps.ChangeItem.Desc),
 		),
 	}
 }

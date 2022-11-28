@@ -64,7 +64,7 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			i := m.ListModel.list.Index()
 			m.InputModel.inputs[0].SetValue(data.Item[i].TITLE)
 			m.InputModel.inputs[1].SetValue(data.Item[i].DESC)
-			m.ListModel.list.RemoveItem(i)
+                        changeItem = true
 			m.state = TextInput
 			return m, nil
 		}

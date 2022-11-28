@@ -19,6 +19,7 @@ var (
 
 	// Data
 	data Data
+        changeItem bool
 )
 
 type Data struct {
