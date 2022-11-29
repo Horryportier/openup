@@ -31,7 +31,6 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 	input := m.InputModel
 
-        
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -58,6 +57,11 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			if s == "enter" && input.focusIndex == len(input.inputs) {
 				if input.inputs[0].Value() != "" && input.inputs[1].Value() != "" {
+					if changeItem {
+						changeItem = false
+						removeItem(changetmp.DESC)
+						m.ListModel.list.RemoveItem(m.ListModel.list.Index())
+					}
 					title := input.inputs[0].Value()
 					path := input.inputs[1].Value()
 					addItem(title, path)
@@ -65,10 +69,6 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 
 					m.InputModel = input
 					m.state = ItemList
-
-					if changeItem {
-						changeItem = false
-					}
 
 					input.inputs[0].SetValue("")
 					input.inputs[1].SetValue("")

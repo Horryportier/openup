@@ -16,10 +16,12 @@ import (
 var (
 	editors = []string{"vim", "nvim", "code", "subl"}
 	editor  string
+        changeItem bool
+        changetmp Item
 
 	// Data
 	data Data
-        changeItem bool
+
 )
 
 type Data struct {

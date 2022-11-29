@@ -62,8 +62,9 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		case key.Matches(msg, m.keys.changeItem):
 			i := m.ListModel.list.Index()
-			m.InputModel.inputs[0].SetValue(data.Item[i].TITLE)
-			m.InputModel.inputs[1].SetValue(data.Item[i].DESC)
+                        changetmp = Item{TITLE: data.Item[i].TITLE, DESC: data.Item[i].DESC,}
+                        m.InputModel.inputs[0].SetValue(changetmp.TITLE)
+                        m.InputModel.inputs[1].SetValue(changetmp.DESC)
                         changeItem = true
 			m.state = TextInput
 			return m, nil
