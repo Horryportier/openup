@@ -2,7 +2,6 @@ package v1
 
 import (
 	"flag"
-	"strconv"
 	// "log"
 
 	"github.com/charmbracelet/bubbles/key"
@@ -138,7 +137,7 @@ func (m model) View() string {
 	}
 	ed := helpStyle.Render("\nEditor(" + accentColor1Text.Render(data.Editor) + ")")
 
-	return dockstyle.Render(m.ListModel.list.View() + ed
+	return dockstyle.Render(m.ListModel.list.View()) + ed
 }
 
 func Start() error {
