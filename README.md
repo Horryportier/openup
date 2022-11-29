@@ -12,6 +12,7 @@ flowchart TD;
         A--> B[Press `A` to add new item]
         A--> C[Press `D` to delete item]
         A--> D[Press `E` to change editor]
+        A--> F[Press `C` to change item]
         A--> E[Press `enter` to open file]
 ```
 
@@ -35,7 +36,7 @@ flowchart TD;
 - [x] choice of editor
 - [x] un/install script
 - [x] better style
-- [ ] changing existing item
+- [x] changing existing item
 - [x] custom key binds
 
 ## keybinds (may change)

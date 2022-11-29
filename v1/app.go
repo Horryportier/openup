@@ -138,7 +138,7 @@ func (m model) View() string {
 	}
 	ed := helpStyle.Render("\nEditor(" + accentColor1Text.Render(data.Editor) + ")")
 
-	return dockstyle.Render(m.ListModel.list.View() + ed+strconv.Itoa(int(m.state)))
+	return dockstyle.Render(m.ListModel.list.View() + ed
 }
 
 func Start() error {
