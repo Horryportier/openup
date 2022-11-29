@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	app "openup/src/v1"
+	app "app/openup/v1"
 )
 
 func main() {

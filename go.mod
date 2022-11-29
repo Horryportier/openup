@@ -1,4 +1,4 @@
-module openup/src
+module app/openup
 
 go 1.18
 
