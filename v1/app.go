@@ -10,7 +10,6 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-// #TODO adding items to list
 
 var (
 	editors = []string{"vim", "nvim", "code", "subl"}

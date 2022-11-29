@@ -2,6 +2,7 @@ package v1
 
 import (
 	"github.com/charmbracelet/lipgloss"
+        "fmt"
 )
 
 var (
@@ -16,6 +17,16 @@ var (
 
 	border    = lipgloss.NormalBorder()
 	dockstyle = lipgloss.NewStyle().Padding(4).Border(border).Align(lipgloss.Center)
+
+	focusedStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("2O5"))
+	blurredStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
+	cursorStyle         = focusedStyle.Copy()
+	noStyle             = lipgloss.NewStyle()
+	helpStyle           = blurredStyle.Copy()
+	cursorModeHelpStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("244"))
+
+	focusedButton = focusedStyle.Copy().Render("[Add item]")
+	blurredButton = fmt.Sprintf("[ %s ]", blurredStyle.Render("Add item"))
 )
 
 func SetStyle(m model) model {
