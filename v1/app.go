@@ -2,6 +2,7 @@ package v1
 
 import (
 	"flag"
+	"strconv"
 	// "log"
 
 	"github.com/charmbracelet/bubbles/key"
@@ -15,9 +16,12 @@ import (
 var (
 	editors = []string{"vim", "nvim", "code", "subl"}
 	editor  string
+        changeItem bool
+        changetmp Item
 
 	// Data
 	data Data
+
 )
 
 type Data struct {
@@ -134,7 +138,7 @@ func (m model) View() string {
 	}
 	ed := helpStyle.Render("\nEditor(" + accentColor1Text.Render(data.Editor) + ")")
 
-	return dockstyle.Render(m.ListModel.list.View() + ed)
+	return dockstyle.Render(m.ListModel.list.View() + ed+strconv.Itoa(int(m.state)))
 }
 
 func Start() error {

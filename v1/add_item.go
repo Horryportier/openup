@@ -1,8 +1,8 @@
 package v1
 
 import (
-        "fmt"
-        "strings"
+	"fmt"
+	"strings"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -20,6 +20,7 @@ var (
 	focusedButton = focusedStyle.Copy().Render("[Add item]")
 	blurredButton = fmt.Sprintf("[ %s ]", blurredStyle.Render("Add item"))
 )
+
 type InputModel struct {
 	focusIndex int
 	inputs     []textinput.Model
@@ -56,6 +57,11 @@ func InputUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			if s == "enter" && input.focusIndex == len(input.inputs) {
 				if input.inputs[0].Value() != "" && input.inputs[1].Value() != "" {
+					if changeItem {
+						changeItem = false
+						removeItem(changetmp.DESC)
+						m.ListModel.list.RemoveItem(m.ListModel.list.Index())
+					}
 					title := input.inputs[0].Value()
 					path := input.inputs[1].Value()
 					addItem(title, path)
@@ -144,5 +150,3 @@ func renderInputs(m model) string {
 
 	return b.String()
 }
-
-
