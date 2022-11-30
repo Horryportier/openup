@@ -15,9 +15,9 @@ flowchart TD;
         A--> F[Press `C` to change item]
         A--> E[Press `enter` to open file]
 ```
-
+<p align="center">
 <img src="https://raw.githubusercontent.com/Horryportier/openup/main/v1/openupvid.gif" width=500 />
-
+</p>
 
 ### Installation:
 
