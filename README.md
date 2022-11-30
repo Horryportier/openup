@@ -1,5 +1,6 @@
 # OpenUp
 ___
+[install](#installation) | [unistall](#uninstall) | [keybinds](#keybinds)
 
 ### About
 > this is simple tui for opening project, config, etc files.
