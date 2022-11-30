@@ -43,14 +43,8 @@ flowchart TD;
 
 
 ## To implement
-- [x] Adding/delting items
-- [x] adding data to json
-- [x] choice of editor
-- [x] un/install script
-- [x] better style
-- [x] changing existing item
-- [x] custom key binds
 - [ ] lunch tmux/kitty session
+- [ ] help for all views
 
 ## keybinds
 
