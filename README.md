@@ -26,9 +26,21 @@ flowchart TD;
 ```bash
    git clone https://github.com/Horryportier/openup
    cd openup
-   chmod +x install.sh
-   ./install.sh
+   mkdir ~/.openup
+   echo "$(cat data.json)" > ~/.openup/data.json | echo "$(cat config.json)" > ~/.openup/config.json
+   go install -v
+   # if your go/bin is not in your path.
+   export PATH=$PATH:/home/$(whoami)/go/bin
 ```
+### Uninstall:
+
+#### Linux:
+
+```bash
+   rm -rf ~/.openup
+   rm ~/go/bin/openup
+```
+
 
 ## To implement
 - [x] Adding/delting items
@@ -38,11 +50,12 @@ flowchart TD;
 - [x] better style
 - [x] changing existing item
 - [x] custom key binds
+- [ ] lunch tmux/kitty session
 
-## keybinds (may change)
+## keybinds
 
 - standard bubbletea list bindings
-- change existing item {c} not working 
+- change existing item {C} not working 
 - delete item {D}
 - add item {A}
 - change editor {E}

@@ -20,7 +20,7 @@ func path(dev *bool) string{
         if err != nil {
                 log.Fatal(err)
         }
-        path := fmt.Sprintf("/home/%s/openup/data.json", user.Username)
+        path := fmt.Sprintf("/home/%s/.openup/data.json", user.Username)
         return path
 }
 
