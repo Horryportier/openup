@@ -16,7 +16,7 @@ var (
 	accentColor2Text = lipgloss.NewStyle().Foreground(accentColor2)
 
 	border    = lipgloss.NormalBorder()
-	dockstyle = lipgloss.NewStyle().Padding(4).Border(border).Align(lipgloss.Center)
+	dockstyle = lipgloss.NewStyle().Padding(4).Align(lipgloss.Left)
 
 	focusedStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("2O5"))
 	blurredStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))

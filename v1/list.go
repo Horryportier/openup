@@ -41,7 +41,7 @@ func ListUpdate(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "ctrl+c", "esc":
 			return m, tea.Quit
 		case "enter":
-			if len(m.ListModel.list.Items()) > 0 {
+			if len(m.ListModel.list.Items()) > 0 && m.ListModel.list.FilterState() != list.Filtering {
 				choice := m.ListModel.list.Items()[m.ListModel.list.Index()].FilterValue()
 				OpenFile(choice, editor)
 				return m, tea.Quit
