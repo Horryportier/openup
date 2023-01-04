@@ -1,4 +1,4 @@
-module github.com/app/openup
+module github.com/Horryportier/openup
 
 go 1.18
 
