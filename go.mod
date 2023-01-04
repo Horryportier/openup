@@ -1,4 +1,4 @@
-module app/openup
+module github.com/app/openup
 
 go 1.18
 
