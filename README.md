@@ -25,13 +25,7 @@ flowchart TD;
 #### Linux:
 
 ```bash
-   git clone https://github.com/Horryportier/openup
-   cd openup
-   mkdir ~/.openup
-   echo "$(cat data.json)" > ~/.openup/data.json | echo "$(cat config.json)" > ~/.openup/config.json
-   go install -v
-   # if your go/bin is not in your path.
-   export PATH=$PATH:/home/$(whoami)/go/bin
+go install github.com/Horryportier/openup@latest 
 ```
 ### Uninstall:
 
